@@ -23,27 +23,27 @@ My work spans REST API design, relational and document persistence, containerize
 ## Portfolio Repositories
 
 ### Backend Fundamentals
-**[order-inventory-api](https://github.com/ferrelm/order-inventory-api)**
+🔒 Private **[order-inventory-api](https://github.com/ferrelm/order-inventory-api)**
 Spring Boot + PostgreSQL + JPA + Flyway practice service. Focused on transactional correctness, schema evolution, validation, and API design. Includes Testcontainers integration and a scaffolded Vite/React frontend.
 
 ### Microservice Integration
-**[shopping-cart-service](https://github.com/ferrelm/shopping-cart-service)**
+🟢 Public **[shopping-cart-service](https://github.com/ferrelm/shopping-cart-service)**
 Feature-oriented Spring Boot microservice with MongoDB, Kafka, OpenFeign, AOP logging, OpenAPI, Helm, and Kubernetes manifests. Includes Postman/Newman API testing and multi-mode Docker Compose setup.
 
 ### Security-Aware Service Delivery
-**[book-orders-service](https://github.com/ferrelm/book-orders-service)**
+🟢 Public **[book-orders-service](https://github.com/ferrelm/book-orders-service)**
 Spring Boot service showcasing OAuth2 resource server (JWT), OpenAPI contract generation, ShedLock distributed locking, Checkstyle, JaCoCo, Helm, Terraform, and Jenkins CI/CD.
 
 ### Multi-Service Platform Design
-**[discover-portugal](https://github.com/ferrelm/discover-portugal)**
+🔒 Private **[discover-portugal](https://github.com/ferrelm/discover-portugal)**
 Tourism platform demo built as multiple coordinated Spring Boot services (catalog, booking, AI, notifications, payments) with PostgreSQL, MongoDB, Kafka, and a React 19 frontend. Demonstrates domain decomposition and hybrid persistence.
 
 ### Full-Stack Product Delivery
-**[run4fun-analytics](https://github.com/ferrelm/run4fun-analytics)**
+🔒 Private **[run4fun-analytics](https://github.com/ferrelm/run4fun-analytics)** 
 Full-stack analytics app built around Strava data. Java 21 + Spring Boot backend with Flyway, JWT auth, and OpenAPI. React 19 + Recharts frontend. Includes Makefile workflows, Testcontainers, and Vitest.
 
 ### Cloud and Platform Engineering
-**[cloud-backend-learning](https://github.com/ferrelm/cloud-backend-learning)**
+🔒 Private **[cloud-backend-learning](https://github.com/ferrelm/cloud-backend-learning)**
 Curriculum-style mono-repo progressing from Spring Boot basics through AWS deployment, Kubernetes/Helm, Jenkins CI/CD, Terraform, observability, and cloud-native reference architecture.
 
 ---
