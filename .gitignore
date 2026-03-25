@@ -1,0 +1,97 @@
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Java
+*.class
+*.log
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# AWS Configuration & Credentials
+.aws/
+*credentials*
+**/aws-credentials.csv
+*.pem
+*.key
+*.csv
+!assets/sample-data/**/*.csv
+
+# Screenshots (may contain sensitive info)
+**/Screenshot*.png
+**/screenshot*.png
+**/Screen Shot*.png
+
+# SSH Keys
+id_rsa*
+id_ed25519*
+
+# Local/temporary Markdown drafts
+README.mdd
+
+# Local files (screenshots, temp files)
+/local-images/
+local-images/
+
+# Video files
+*.mp4
+
+# Interview notes and drafts
+interviews/
+
+# Java / Maven
+/target/
+/backend/target/
+**/target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+*.jar
+*.war
+jenkins-cli.jar
+*.ear
+
+# Test reports
+surefire-reports/
+target/surefire-reports/
+
+# Misc
+*.bak
+*.swp
+*.tmp
+*.log
+backend/bin/
+# Local DB backups
+/backups/
+!backups/README.md
+
+# Ignore Word documents
+*.docx
+docs/*.docx
+
+# Dumps and archives
+/dumps/
+*.tar.gz
+*.zip
+*.7z
+*.rar
+*.tar
+*.xz
+*.gz
+*.bz2
+
+/docs
+/scripts
