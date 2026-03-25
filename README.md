@@ -20,6 +20,12 @@ My work spans REST API design, relational and document persistence, containerize
 
 ---
 
+## Note
+
+Some of the repositories listed below are not public yet, but will be made available soon. If you don't see a linked project, please check back later!
+
+---
+
 ## Portfolio Repositories
 
 ### Backend Fundamentals
@@ -53,12 +59,6 @@ Curriculum-style mono-repo progressing from Spring Boot basics through AWS deplo
 - Deepening cloud-native and platform engineering skills (AWS, Kubernetes, Terraform, observability)
 - Building production-realistic full-stack demos end-to-end
 - Improving deployment and release discipline across the portfolio
-
----
-
-## Note
-
-Some of the repositories listed below are not public yet, but will be made available soon. If you don't see a linked project, please check back later!
 
 ---
 
