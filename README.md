@@ -29,7 +29,7 @@ Some of the repositories listed below are not public yet, but will be made avail
 ## Portfolio Repositories
 
 ### Backend Fundamentals
-🔒 Private **[order-inventory-api](https://github.com/ferrelm/order-inventory-api)**
+🟢 Public **[order-inventory-api](https://github.com/ferrelm/order-inventory-api)**
 Spring Boot + PostgreSQL + JPA + Flyway practice service. Focused on transactional correctness, schema evolution, validation, and API design. Includes Testcontainers integration and a scaffolded Vite/React frontend.
 
 ### Microservice Integration
