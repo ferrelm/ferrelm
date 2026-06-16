@@ -1,62 +1,106 @@
-## Hi there
+## Hi there 👋
 
-I'm a software engineer focused on building production-oriented Java/Spring Boot services, with growing depth in cloud infrastructure, distributed systems, and full-stack delivery.
+I'm a software engineer building **production-oriented Java/Spring Boot services**, with depth in
+**transactional correctness, distributed systems, cloud-native delivery, and AI-native engineering** —
+on top of a long background in large-scale telecom service delivery (incident/problem management, SLAs).
 
-My work spans REST API design, relational and document persistence, containerized local development, and deployment tooling brought together across a set of related portfolio repositories.
+My work spans REST API design, relational and document persistence, event-driven integration,
+containerized delivery, and infrastructure-as-code, brought together across a set of related portfolio
+repositories — each built to make **real engineering decisions with explicit trade-offs**, not just to demo a framework.
 
 ---
 
 ## Core Stack
 
 - **Languages:** Java 17 / 21
-- **Framework:** Spring Boot 3.x (Web, Data JPA, Data MongoDB, Security, Actuator, OpenAPI)
+- **Framework:** Spring Boot 3.x (Web, Data JPA, Data MongoDB, Security/OAuth2, Actuator, AOP, Cache, OpenAPI)
 - **Databases:** PostgreSQL, MongoDB
 - **Messaging:** Apache Kafka
+- **Resilience:** Resilience4j (circuit breakers, fallbacks)
 - **Testing:** JUnit 5, Testcontainers, Mockito, JaCoCo
 - **Frontend:** React 19, Vite, TypeScript, Tailwind CSS
 - **Ops / Delivery:** Docker, Docker Compose, Kubernetes, Helm, Terraform, Jenkins, GitHub Actions
-- **Cloud:** AWS (EC2, S3, RDS, ECS, and related services)
+- **Cloud:** AWS (EC2, S3, RDS, ECS/EKS, IAM, CloudWatch)
 - **Observability:** Prometheus, Grafana, Spring Boot Actuator
 
 ---
 
-## Note
+## Selected Engineering Decisions
 
-Some of the repositories listed below are not public yet, but will be made available soon. If you don't see a linked project, please check back later!
+A few real decisions from the repositories below — each stated with its trade-off (happy to go deeper):
+
+- **Concurrency & correctness** — optimistic locking (JPA `@Version`) for inventory reservation, *proven
+  with a Testcontainers concurrency test against real Postgres*: parallel orders can't oversell, the loser
+  retries instead of blocking. Invariants enforced in both the domain layer and a DB `CHECK` constraint.
+- **Caching** — in-process Caffeine with per-cache TTLs and evict-on-write, chosen for zero-infra
+  simplicity; designed to move to a shared cache (Redis) once the service scales horizontally.
+- **Resilience** — synchronous inter-service calls wrapped in Resilience4j circuit breakers with
+  fallbacks; event publishing kept *best-effort async* so a broker outage degrades to "no event" rather
+  than a failed request (transactional outbox as the next step).
+- **Security** — stateless OAuth2 resource server validating JWTs locally against cached JWKS (no
+  per-request IdP call); sensitive media served through auth-gated endpoints with EXIF/GPS stripping.
+- **Contracts & schema** — contract-first OpenAPI generating server interfaces; Flyway-managed, auditable
+  schema evolution.
+- **Cloud & CI/CD** — Helm-packaged services with Actuator readiness/liveness probes; Terraform
+  (VPC / EKS / RDS in private subnets); an in-cluster, daemonless Jenkins pipeline (Kaniko).
+
+---
+
+## AI-Native Engineering
+
+- **Building *with* AI** — governance for coding agents: permission boundaries, human-approval gates and
+  spec-driven supervision, documented as reusable patterns →
+  **[ai-native-delivery-patterns](https://github.com/ferrelm/ai-native-delivery-patterns)**.
+- **Building AI features** — LLM (OpenAI) integration in a recommendations service: candidate retrieval,
+  prompt construction, and response shaping behind a clean service boundary.
 
 ---
 
 ## Portfolio Repositories
 
-### Backend Fundamentals
-🟢 Public **[order-inventory-api](https://github.com/ferrelm/order-inventory-api)**
-Spring Boot + PostgreSQL + JPA + Flyway practice service. Focused on transactional correctness, schema evolution, validation, and API design. Includes Testcontainers integration and a scaffolded Vite/React frontend.
+> Some repositories below are private while I scrub them for public release — they'll be linked as they go public.
 
-### Microservice Integration
+### Backend Fundamentals — transactional correctness & concurrency
+🟢 Public **[order-inventory-api](https://github.com/ferrelm/order-inventory-api)**
+Spring Boot + PostgreSQL + JPA + Flyway. Stock reservation under concurrency via optimistic locking
+(`@Version`), with a latch-synchronized Testcontainers test proving only one of two parallel orders wins.
+Defense-in-depth invariants (domain + DB `CHECK`), Bean Validation, contract-first API.
+
+### Microservice Integration — events & resilience
 🟢 Public **[shopping-cart-service](https://github.com/ferrelm/shopping-cart-service)**
-Feature-oriented Spring Boot microservice with MongoDB, Kafka, OpenFeign, AOP logging, OpenAPI, Helm, and Kubernetes manifests. Includes Postman/Newman API testing and multi-mode Docker Compose setup.
+Spring Boot + MongoDB microservice: best-effort async Kafka event publishing, synchronous pricing via
+OpenFeign wrapped in a Resilience4j circuit breaker with fallback, AOP-based cross-cutting logging,
+OpenAPI, Helm/Kubernetes manifests, and Testcontainers + Postman/Newman testing.
 
 ### Security-Aware Service Delivery
 🟢 Public **[book-orders-service](https://github.com/ferrelm/book-orders-service)**
-Spring Boot service showcasing OAuth2 resource server (JWT), OpenAPI contract generation, ShedLock distributed locking, Checkstyle, JaCoCo, Helm, Terraform, and Jenkins CI/CD.
+Stateless OAuth2 resource server (JWT validated against cached JWKS), contract-first OpenAPI, Checkstyle +
+JaCoCo quality gates, Helm + Terraform, and a Jenkins CI/CD pipeline with a manual promotion gate.
 
 ### Multi-Service Platform Design
-🔒 Private **[discover-portugal](https://github.com/ferrelm/discover-portugal)**
-Tourism platform demo built as multiple coordinated Spring Boot services (catalog, booking, AI, notifications, payments) with PostgreSQL, MongoDB, Kafka, and a React 19 frontend. Demonstrates domain decomposition and hybrid persistence.
+🔒 Private **discover-portugal**
+A multi-service platform (catalog, booking, payments, notifications, AI) demonstrating **domain
+decomposition**, **hybrid persistence** (PostgreSQL for the structured core, MongoDB for flexible detail
+documents), **Kafka event choreography** (a slow mailer never blocks a booking), Feign + circuit breakers
+for read-time calls, and an **OpenAI-backed recommendations service**.
 
 ### Full-Stack Product Delivery
-🔒 Private **[club-analytics](https://github.com/ferrelm/club-analytics)** 
-Full-stack analytics app built around Strava data. Java 21 + Spring Boot backend with Flyway, JWT auth, and OpenAPI. React 19 + Recharts frontend. Includes Makefile workflows, Testcontainers, and Vitest.
+🔒 Private **club-analytics**
+Full-stack analytics around Strava data. Java 21 + Spring Boot backend with 50+ Flyway migrations, JWT
+auth, contract-first OpenAPI, **proactive OAuth token refresh with incremental sync**, Caffeine caching,
+and private object storage (S3-compatible) with EXIF/GPS stripping. React 19 + Recharts frontend;
+Testcontainers + Vitest; Makefile workflows and rich CI.
 
-### Cloud and Platform Engineering
-🔒 Private **[cloud-backend-learning](https://github.com/ferrelm/cloud-backend-learning)**
-Curriculum-style mono-repo progressing from Spring Boot basics through AWS deployment, Kubernetes/Helm, Jenkins CI/CD, Terraform, observability, and cloud-native reference architecture.
+### Cloud & Platform Engineering
+🔒 Private **cloud-backend-learning**
+A progression from Spring Boot basics through AWS deployment, Kubernetes/Helm, an in-cluster Kaniko
+Jenkins pipeline, Terraform (VPC/EKS/RDS), and observability (Prometheus/Grafana).
 
 ---
 
 ## What I'm Working On
 
-- Deepening cloud-native and platform engineering skills (AWS, Kubernetes, Terraform, observability)
+- Deepening cloud-native and platform engineering (AWS, Kubernetes, Terraform, observability)
 - Building production-realistic full-stack demos end-to-end
 - Improving deployment and release discipline across the portfolio
 
