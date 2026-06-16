@@ -53,6 +53,8 @@ A few real decisions from the repositories below — each stated with its trade-
   **[ai-native-delivery-patterns](https://github.com/ferrelm/ai-native-delivery-patterns)**.
 - **Building AI features** — LLM (OpenAI) integration in a recommendations service: candidate retrieval,
   prompt construction, and response shaping behind a clean service boundary.
+- **Writing about it** — *[The Great Inversion: How AI Broke the Software Development Model We Spent 50 Years Building](https://ferrelm.github.io/the-great-inversion/)*,
+  an essay on how AI is reshaping software engineering.
 
 ---
 
