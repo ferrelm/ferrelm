@@ -87,11 +87,28 @@ documents), **Kafka event choreography** (a slow mailer never blocks a booking),
 for read-time calls, and an **OpenAI-backed recommendations service**.
 
 ### Full-Stack Product Delivery
-🔒 Private **club-analytics**
-Full-stack analytics around Strava data. Java 21 + Spring Boot backend with 50+ Flyway migrations, JWT
-auth, contract-first OpenAPI, **proactive OAuth token refresh with incremental sync**, Caffeine caching,
-and private object storage (S3-compatible) with EXIF/GPS stripping. React 19 + Recharts frontend;
-Testcontainers + Vitest; Makefile workflows and rich CI.
+🔒 Private **club-analytics** (product: *ClubSpace*)
+A full-stack sports-club analytics platform built around Strava data, shipped to **five surfaces from one
+codebase**: a React web SPA, a Capacitor Android app (live in Google Play), and an Electron desktop build,
+served by a Spring Boot API and managed Postgres.
+
+- **Backend** — Java 21 + Spring Boot 3.3: ~55 JPA entities, **~86 Flyway migrations** (always-on,
+  frozen baseline, `CREATE INDEX CONCURRENTLY` handled out-of-transaction), JWT session cookie validated
+  in a custom filter, three-tier role system embedded as a JWT claim, contract-first OpenAPI (generated
+  server interfaces), MapStruct mapping, and Caffeine caching.
+- **Strava integration** — OAuth login plus **proactive token refresh with incremental activity sync**;
+  club/athlete import, group events, and route-stream charts.
+- **Media & messaging** — private object storage on **Cloudflare R2** (S3 API) with an EXIF/GPS-stripping
+  image pipeline (WebP decode + thumbnailing), served through auth-gated endpoints; **dual push** via
+  Firebase FCM (Android) and Web Push/VAPID (browser), plus transactional email via Resend.
+- **Frontend** — React 19 + Vite 8, Recharts + Leaflet/heatmaps; build-time per-club branding so the same
+  app re-skins per deployment.
+- **Architecture choice** — deliberately **per-deployment / club-agnostic rather than shared multi-tenant**:
+  branding, infra targets, and tokens are templated, trading tenant-row complexity for isolated, simpler
+  deployments.
+- **Delivery** — backend on **Render** (multi-stage Docker), frontend on **Netlify** (SPA + API proxy);
+  Testcontainers (real Postgres) + JaCoCo backend, Vitest + Playwright frontend (~280 test files total),
+  Make-driven workflows, and a deep GitHub Actions suite including AI-agent governance workflows.
 
 ### Cloud & Platform Engineering
 🔒 Private **cloud-backend-learning**
